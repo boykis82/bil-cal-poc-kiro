@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.MasterTableMapper">
+
+    <!-- 가입정보 내 일회성 요금 항목 -->
+    <resultMap id="oneTimeFeeItemResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo$OneTimeFeeItem">
+        <result property="feeItemCode" column="FEE_ITEM_CODE"/>
+        <result property="feeItemName" column="FEE_ITEM_NAME"/>
+        <result property="amount" column="FEE_AMOUNT"/>
+    </resultMap>
+
+    <!-- 가입정보 내 사용량 기반 요금 항목 -->
+    <resultMap id="usageFeeItemResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo$UsageFeeItem">
+        <result property="feeItemCode" column="USAGE_FEE_ITEM_CODE"/>
+        <result property="feeItemName" column="USAGE_FEE_ITEM_NAME"/>
+        <result property="unitPrice" column="UNIT_PRICE"/>
+        <result property="usageQuantity" column="USAGE_QUANTITY"/>
+    </resultMap>
+
+    <!-- 가입정보 내 할인 항목 -->
+    <resultMap id="discountItemResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo$DiscountItem">
+        <result property="discountCode" column="DISCOUNT_CODE"/>
+        <result property="discountName" column="DISCOUNT_NAME"/>
+        <result property="discountRate" column="DISCOUNT_RATE"/>
+    </resultMap>
+
+    <!-- 가입정보 resultMap -->
+    <resultMap id="subscriptionInfoResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo">
+        <result property="subscriptionId" column="SUBSCRIPTION_ID"/>
+        <result property="productId" column="PRODUCT_ID"/>
+        <result property="subscriberId" column="SUBSCRIBER_ID"/>
+        <result property="monthlyRate" column="MONTHLY_RATE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="specialProductYn" column="SPECIAL_PRODUCT_YN"/>
+        <result property="specialProductSurcharge" column="SPECIAL_PRODUCT_SURCHARGE"/>
+        <result property="splitRatio" column="SPLIT_RATIO"/>
+        <result property="splitTargetId" column="SPLIT_TARGET_ID"/>
+        <collection property="oneTimeFeeItems" resultMap="oneTimeFeeItemResultMap"/>
+        <collection property="usageFeeItems" resultMap="usageFeeItemResultMap"/>
+        <collection property="discountItems" resultMap="discountItemResultMap"/>
+    </resultMap>
+
+    <!-- 정지이력 resultMap -->
+    <resultMap id="suspensionHistoryResultMap"
+               type="com.billing.charge.calculation.internal.model.SuspensionHistory">
+        <result property="suspensionId" column="SUSPENSION_ID"/>
+        <result property="startDate" column="SUSPENSION_START_DATE"/>
+        <result property="endDate" column="SUSPENSION_END_DATE"/>
+        <result property="reason" column="SUSPENSION_REASON"/>
+    </resultMap>
+
+    <!-- 청구정보 resultMap -->
+    <resultMap id="billingInfoResultMap"
+               type="com.billing.charge.calculation.internal.model.BillingInfo">
+        <result property="billingId" column="BILLING_ID"/>
+        <result property="contractId" column="CONTRACT_ID"/>
+        <result property="previousBilledAmount" column="PREVIOUS_BILLED_AMOUNT"/>
+        <result property="unpaidAmount" column="UNPAID_AMOUNT"/>
+        <result property="dueDate" column="DUE_DATE"/>
+        <result property="currentDate" column="CURRENT_DATE"/>
+        <result property="autoPayEnabled" column="AUTO_PAY_ENABLED"/>
+        <result property="autoPayDiscountRate" column="AUTO_PAY_DISCOUNT_RATE"/>
+    </resultMap>
+
+    <!-- 수납정보 resultMap -->
+    <resultMap id="paymentInfoResultMap"
+               type="com.billing.charge.calculation.internal.model.PaymentInfo">
+        <result property="paymentId" column="PAYMENT_ID"/>
+        <result property="contractId" column="CONTRACT_ID"/>
+        <result property="paidAmount" column="PAID_AMOUNT"/>
+        <result property="paymentDate" column="PAYMENT_DATE"/>
+    </resultMap>
+
+    <!-- 선납내역 resultMap -->
+    <resultMap id="prepaidRecordResultMap"
+               type="com.billing.charge.calculation.internal.model.PrepaidRecord">
+        <result property="prepaidId" column="PREPAID_ID"/>
+        <result property="amount" column="PREPAID_AMOUNT"/>
+    </resultMap>
+
+    <!-- 요금 계산 입력 데이터 통합 resultMap -->
+    <resultMap id="chargeInputResultMap"
+               type="com.billing.charge.calculation.internal.model.ChargeInput">
+        <association property="subscriptionInfo" resultMap="subscriptionInfoResultMap"/>
+        <collection property="suspensionHistories" resultMap="suspensionHistoryResultMap"/>
+        <association property="billingInfo" resultMap="billingInfoResultMap"/>
+        <association property="paymentInfo" resultMap="paymentInfoResultMap"/>
+        <collection property="prepaidRecords" resultMap="prepaidRecordResultMap"/>
+    </resultMap>
+
+    <!-- 마스터 테이블에서 요금 계산 입력 데이터 조회 -->
+    <select id="readChargeInput" resultMap="chargeInputResultMap"
+            parameterType="com.billing.charge.calculation.api.dto.ContractInfo">
+        SELECT s.SUBSCRIPTION_ID,
+               s.PRODUCT_ID,
+               s.SUBSCRIBER_ID,
+               s.MONTHLY_RATE,
+               s.START_DATE,
+               s.END_DATE,
+               s.SPECIAL_PRODUCT_YN,
+               s.SPECIAL_PRODUCT_SURCHARGE,
+               s.SPLIT_RATIO,
+               s.SPLIT_TARGET_ID,
+               sh.SUSPENSION_ID,
+               sh.SUSPENSION_START_DATE,
+               sh.SUSPENSION_END_DATE,
+               sh.SUSPENSION_REASON,
+               b.BILLING_ID,
+               b.CONTRACT_ID,
+               b.PREVIOUS_BILLED_AMOUNT,
+               b.UNPAID_AMOUNT,
+               b.DUE_DATE,
+               SYSDATE AS CURRENT_DATE,
+               b.AUTO_PAY_ENABLED,
+               b.AUTO_PAY_DISCOUNT_RATE,
+               p.PAYMENT_ID,
+               p.PAID_AMOUNT,
+               p.PAYMENT_DATE,
+               pr.PREPAID_ID,
+               pr.PREPAID_AMOUNT,
+               otf.FEE_ITEM_CODE,
+               otf.FEE_ITEM_NAME,
+               otf.FEE_AMOUNT,
+               uf.USAGE_FEE_ITEM_CODE,
+               uf.USAGE_FEE_ITEM_NAME,
+               uf.UNIT_PRICE,
+               uf.USAGE_QUANTITY,
+               d.DISCOUNT_CODE,
+               d.DISCOUNT_NAME,
+               d.DISCOUNT_RATE
+          FROM SUBSCRIPTION s
+          LEFT JOIN SUSPENSION_HISTORY sh ON s.SUBSCRIPTION_ID = sh.SUBSCRIPTION_ID
+               AND sh.START_DATE &lt;= #{billingEndDate}
+               AND sh.END_DATE &gt;= #{billingStartDate}
+          LEFT JOIN BILLING_INFO b ON s.CONTRACT_ID = b.CONTRACT_ID
+          LEFT JOIN PAYMENT_INFO p ON s.CONTRACT_ID = p.CONTRACT_ID
+          LEFT JOIN PREPAID_RECORD pr ON s.CONTRACT_ID = pr.CONTRACT_ID
+          LEFT JOIN ONE_TIME_FEE otf ON s.SUBSCRIPTION_ID = otf.SUBSCRIPTION_ID
+          LEFT JOIN USAGE_FEE uf ON s.SUBSCRIPTION_ID = uf.SUBSCRIPTION_ID
+          LEFT JOIN DISCOUNT d ON s.SUBSCRIPTION_ID = d.SUBSCRIPTION_ID
+         WHERE s.CONTRACT_ID = #{contractId}
+    </select>
+
+</mapper>

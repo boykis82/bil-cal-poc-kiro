@@ -1,0 +1,7 @@
+// billing-charge-calculation-api
+// 타 컴포넌트에 제공할 인터페이스, DTO, Enum 전용 jar
+// 외부 의존성 없음 (standalone)
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+}

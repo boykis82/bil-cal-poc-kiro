@@ -1,0 +1,21 @@
+// billing-charge-calculation-impl
+// 구현체 jar: ChargeCalculationServiceImpl, PipelineEngine, PipelineConfigurator, ReferenceDataCache
+// api, internal 모듈에 의존
+
+dependencies {
+    implementation project(':billing-charge-calculation-api')
+    implementation project(':billing-charge-calculation-internal')
+
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    // MyBatis (@MapperScan 설정용)
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+
+    // Caffeine Cache
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+
+    // Spring Batch
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+}

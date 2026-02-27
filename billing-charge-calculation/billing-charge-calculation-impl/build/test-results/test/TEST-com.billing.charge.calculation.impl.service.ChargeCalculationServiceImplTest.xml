@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.billing.charge.calculation.impl.service.ChargeCalculationServiceImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-02-27T09:12:09.920Z" hostname="SKAXui-MacBookPro.local" time="0.009">
+  <properties/>
+  <testcase name="유스케이스 구분 누락 시 InvalidRequestException 발생" classname="com.billing.charge.calculation.impl.service.ChargeCalculationServiceImplTest" time="0.003"/>
+  <testcase name="계약정보 리스트가 null인 경우 InvalidRequestException 발생" classname="com.billing.charge.calculation.impl.service.ChargeCalculationServiceImplTest" time="0.002"/>
+  <testcase name="계약정보 리스트가 빈 경우 InvalidRequestException 발생" classname="com.billing.charge.calculation.impl.service.ChargeCalculationServiceImplTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

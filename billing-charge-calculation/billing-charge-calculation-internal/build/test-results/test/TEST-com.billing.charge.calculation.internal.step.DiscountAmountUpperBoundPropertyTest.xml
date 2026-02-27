@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.billing.charge.calculation.internal.step.DiscountAmountUpperBoundPropertyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-27T09:12:12.216Z" hostname="SKAXui-MacBookPro.local" time="0.033">
+  <properties/>
+  <testcase name="periodDiscountAmountShouldNotExceedPrincipal" classname="com.billing.charge.calculation.internal.step.DiscountAmountUpperBoundPropertyTest" time="0.021"/>
+  <testcase name="flatDiscountAmountShouldNotExceedPrincipal" classname="com.billing.charge.calculation.internal.step.DiscountAmountUpperBoundPropertyTest" time="0.012"/>
+  <system-out><![CDATA[timestamp = 2026-02-27T18:12:12.237630, DiscountAmountUpperBoundPropertyTest:periodDiscountAmountShouldNotExceedPrincipal = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 100        | # of all combined edge cases
+edge-cases#tried = 22         | # of edge cases tried in current run
+seed = 265867043256817137     | random seed to reproduce generated values
+
+
+timestamp = 2026-02-27T18:12:12.250109, DiscountAmountUpperBoundPropertyTest:flatDiscountAmountShouldNotExceedPrincipal = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 16         | # of all combined edge cases
+edge-cases#tried = 15         | # of edge cases tried in current run
+seed = 5482854626993011369    | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[2월 27, 2026 6:12:12 오후 net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+정보: Edge case generation exceeds number of tries. Stopped after 100 generated cases.
+]]></system-err>
+</testsuite>

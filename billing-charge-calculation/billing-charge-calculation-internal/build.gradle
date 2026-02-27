@@ -1,0 +1,13 @@
+// billing-charge-calculation-internal
+// 내부 전용 jar: ChargeItemStep 구현체, DataAccessStrategy 구현체, MyBatis Mapper, 유틸리티
+// api 모듈에 의존
+
+dependencies {
+    implementation project(':billing-charge-calculation-api')
+
+    // MyBatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+
+    // Oracle JDBC
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
+}

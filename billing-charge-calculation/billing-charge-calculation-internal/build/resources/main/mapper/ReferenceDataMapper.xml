@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.ReferenceDataMapper">
+
+    <!-- 단건 기준정보 조회 -->
+    <select id="selectReferenceData" resultType="java.lang.Object">
+        SELECT REF_DATA_VALUE
+          FROM REFERENCE_DATA
+         WHERE TENANT_ID = #{tenantId}
+           AND REF_DATA_TYPE = #{type}
+           AND REF_DATA_KEY = #{keyValue}
+           AND ACTIVE_YN = 'Y'
+    </select>
+
+    <!-- 복수 건 기준정보 일괄 조회 (정기청구 배치 사전 적재용) -->
+    <select id="selectBulkReferenceData" resultType="java.util.HashMap">
+        SELECT REF_DATA_TYPE || '|' || REF_DATA_KEY AS COMPOSITE_KEY,
+               REF_DATA_TYPE,
+               REF_DATA_KEY,
+               REF_DATA_VALUE
+          FROM REFERENCE_DATA
+         WHERE TENANT_ID = #{tenantId}
+           AND ACTIVE_YN = 'Y'
+           AND (REF_DATA_TYPE, REF_DATA_KEY) IN
+               <foreach collection="keys" item="key" open="(" separator="," close=")">
+                   (#{key.type}, #{key.keyValue})
+               </foreach>
+    </select>
+
+</mapper>

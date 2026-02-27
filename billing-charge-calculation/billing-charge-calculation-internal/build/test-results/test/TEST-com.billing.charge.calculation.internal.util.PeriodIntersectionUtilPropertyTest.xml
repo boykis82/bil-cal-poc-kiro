@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.billing.charge.calculation.internal.util.PeriodIntersectionUtilPropertyTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-02-27T09:12:12.335Z" hostname="SKAXui-MacBookPro.local" time="0.011">
+  <properties/>
+  <testcase name="intersectedPeriodsShouldNotOverlap" classname="com.billing.charge.calculation.internal.util.PeriodIntersectionUtilPropertyTest" time="0.011"/>
+  <system-out><![CDATA[timestamp = 2026-02-27T18:12:12.347167, PeriodIntersectionUtilPropertyTest:intersectedPeriodsShouldNotOverlap = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 100        | # of all combined edge cases
+edge-cases#tried = 18         | # of edge cases tried in current run
+seed = -6497195618510520197   | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[2월 27, 2026 6:12:12 오후 net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+정보: Edge case generation exceeds number of tries. Stopped after 100 generated cases.
+]]></system-err>
+</testsuite>

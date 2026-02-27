@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.billing.charge.calculation.internal.step.SplitBillingTotalPreservationPropertyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-27T09:12:12.319Z" hostname="SKAXui-MacBookPro.local" time="0.015">
+  <properties/>
+  <testcase name="splitBillingItemsShouldSumToZero" classname="com.billing.charge.calculation.internal.step.SplitBillingTotalPreservationPropertyTest" time="0.008"/>
+  <testcase name="splitBillingShouldPreserveTotalAmount" classname="com.billing.charge.calculation.internal.step.SplitBillingTotalPreservationPropertyTest" time="0.007"/>
+  <system-out><![CDATA[timestamp = 2026-02-27T18:12:12.327643, SplitBillingTotalPreservationPropertyTest:splitBillingItemsShouldSumToZero = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 80         | # of all combined edge cases
+edge-cases#tried = 14         | # of edge cases tried in current run
+seed = 197799212452712840     | random seed to reproduce generated values
+
+
+timestamp = 2026-02-27T18:12:12.334808, SplitBillingTotalPreservationPropertyTest:splitBillingShouldPreserveTotalAmount = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 80         | # of all combined edge cases
+edge-cases#tried = 18         | # of edge cases tried in current run
+seed = -5255507936102867987   | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

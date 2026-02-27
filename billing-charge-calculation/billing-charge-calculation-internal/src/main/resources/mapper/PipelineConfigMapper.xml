@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.PipelineConfigMapper">
+
+    <resultMap id="pipelineConfigResultMap"
+               type="com.billing.charge.calculation.internal.mapper.dto.PipelineConfigDto">
+        <id property="pipelineConfigId" column="PIPELINE_CONFIG_ID"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="productType" column="PRODUCT_TYPE"/>
+        <result property="useCaseType" column="USE_CASE_TYPE"/>
+        <result property="description" column="DESCRIPTION"/>
+    </resultMap>
+
+    <resultMap id="pipelineStepConfigResultMap"
+               type="com.billing.charge.calculation.internal.mapper.dto.PipelineStepConfigDto">
+        <result property="pipelineConfigId" column="PIPELINE_CONFIG_ID"/>
+        <result property="stepId" column="STEP_ID"/>
+        <result property="stepOrder" column="STEP_ORDER"/>
+    </resultMap>
+
+    <!-- 테넌트ID, 상품유형, 유스케이스 조합으로 활성화된 Pipeline 구성 조회 -->
+    <select id="findByTenantAndProductAndUseCase" resultMap="pipelineConfigResultMap">
+        SELECT PIPELINE_CONFIG_ID,
+               TENANT_ID,
+               PRODUCT_TYPE,
+               USE_CASE_TYPE,
+               DESCRIPTION
+          FROM PIPELINE_CONFIG
+         WHERE TENANT_ID = #{tenantId}
+           AND PRODUCT_TYPE = #{productType}
+           AND USE_CASE_TYPE = #{useCaseType}
+           AND ACTIVE_YN = 'Y'
+    </select>
+
+    <!-- Pipeline 구성 ID로 활성화된 Step 구성 목록을 STEP_ORDER 순으로 조회 -->
+    <select id="findStepsByPipelineConfigId" resultMap="pipelineStepConfigResultMap">
+        SELECT PIPELINE_CONFIG_ID,
+               STEP_ID,
+               STEP_ORDER
+          FROM PIPELINE_STEP_CONFIG
+         WHERE PIPELINE_CONFIG_ID = #{pipelineConfigId}
+           AND ACTIVE_YN = 'Y'
+         ORDER BY STEP_ORDER ASC
+    </select>
+
+</mapper>

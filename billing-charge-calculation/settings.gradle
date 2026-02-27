@@ -1,0 +1,5 @@
+rootProject.name = 'billing-charge-calculation'
+
+include 'billing-charge-calculation-api'
+include 'billing-charge-calculation-impl'
+include 'billing-charge-calculation-internal'

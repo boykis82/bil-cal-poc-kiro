@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.ChargeResultMapper">
+
+    <!-- 요금 계산 결과 저장 -->
+    <insert id="insertChargeResult"
+            parameterType="com.billing.charge.calculation.internal.model.ChargeResult">
+        INSERT INTO CHARGE_RESULT (
+            RESULT_ID,
+            CONTRACT_ID,
+            CHARGE_ITEM_CODE,
+            CHARGE_ITEM_NAME,
+            CHARGE_ITEM_TYPE,
+            AMOUNT,
+            CURRENCY_CODE,
+            CREATED_AT
+        )
+        <foreach collection="chargeResults" item="item" separator="UNION ALL">
+            SELECT SYS_GUID(),
+                   #{contractId},
+                   #{item.chargeItemCode},
+                   #{item.chargeItemName},
+                   #{item.chargeItemType, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+                   #{item.amount},
+                   #{item.currencyCode},
+                   SYSTIMESTAMP
+              FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 요금 항목 처리 상태 갱신 (MERGE로 upsert 처리) -->
+    <update id="updateProcessingStatus">
+        MERGE INTO CHARGE_PROCESSING_STATUS cps
+        USING (SELECT #{chargeItemId} AS CONTRACT_STEP_KEY FROM DUAL) src
+           ON (cps.CONTRACT_ID || '|' || cps.STEP_ID = src.CONTRACT_STEP_KEY)
+        WHEN MATCHED THEN
+            UPDATE SET STATUS = #{status, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+                       PROCESSED_AT = SYSTIMESTAMP
+        WHEN NOT MATCHED THEN
+            INSERT (PROCESSING_ID, CONTRACT_ID, STEP_ID, STATUS, PROCESSED_AT)
+            VALUES (SYS_GUID(),
+                    SUBSTR(#{chargeItemId}, 1, INSTR(#{chargeItemId}, '|') - 1),
+                    SUBSTR(#{chargeItemId}, INSTR(#{chargeItemId}, '|') + 1),
+                    #{status, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+                    SYSTIMESTAMP)
+    </update>
+
+</mapper>

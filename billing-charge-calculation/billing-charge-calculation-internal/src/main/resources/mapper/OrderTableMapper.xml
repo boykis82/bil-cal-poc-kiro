@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.OrderTableMapper">
+
+    <!-- 가입정보 내 일회성 요금 항목 -->
+    <resultMap id="oneTimeFeeItemResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo$OneTimeFeeItem">
+        <result property="feeItemCode" column="FEE_ITEM_CODE"/>
+        <result property="feeItemName" column="FEE_ITEM_NAME"/>
+        <result property="amount" column="FEE_AMOUNT"/>
+    </resultMap>
+
+    <!-- 가입정보 내 사용량 기반 요금 항목 -->
+    <resultMap id="usageFeeItemResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo$UsageFeeItem">
+        <result property="feeItemCode" column="USAGE_FEE_ITEM_CODE"/>
+        <result property="feeItemName" column="USAGE_FEE_ITEM_NAME"/>
+        <result property="unitPrice" column="UNIT_PRICE"/>
+        <result property="usageQuantity" column="USAGE_QUANTITY"/>
+    </resultMap>
+
+    <!-- 가입정보 내 할인 항목 -->
+    <resultMap id="discountItemResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo$DiscountItem">
+        <result property="discountCode" column="DISCOUNT_CODE"/>
+        <result property="discountName" column="DISCOUNT_NAME"/>
+        <result property="discountRate" column="DISCOUNT_RATE"/>
+    </resultMap>
+
+    <!-- 접수 테이블 가입정보 resultMap -->
+    <resultMap id="subscriptionInfoResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo">
+        <result property="subscriptionId" column="SUBSCRIPTION_ID"/>
+        <result property="productId" column="PRODUCT_ID"/>
+        <result property="subscriberId" column="SUBSCRIBER_ID"/>
+        <result property="monthlyRate" column="MONTHLY_RATE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="specialProductYn" column="SPECIAL_PRODUCT_YN"/>
+        <result property="specialProductSurcharge" column="SPECIAL_PRODUCT_SURCHARGE"/>
+        <result property="splitRatio" column="SPLIT_RATIO"/>
+        <result property="splitTargetId" column="SPLIT_TARGET_ID"/>
+        <collection property="oneTimeFeeItems" resultMap="oneTimeFeeItemResultMap"/>
+        <collection property="usageFeeItems" resultMap="usageFeeItemResultMap"/>
+        <collection property="discountItems" resultMap="discountItemResultMap"/>
+    </resultMap>
+
+    <!-- 요금 계산 입력 데이터 통합 resultMap (접수 테이블) -->
+    <resultMap id="chargeInputResultMap"
+               type="com.billing.charge.calculation.internal.model.ChargeInput">
+        <association property="subscriptionInfo" resultMap="subscriptionInfoResultMap"/>
+    </resultMap>
+
+    <!-- 접수 테이블에서 요금 계산 입력 데이터 조회 (개통 완료 전 예상 요금 조회) -->
+    <select id="readChargeInput" resultMap="chargeInputResultMap"
+            parameterType="com.billing.charge.calculation.api.dto.ContractInfo">
+        SELECT o.SUBSCRIPTION_ID,
+               o.PRODUCT_ID,
+               o.SUBSCRIBER_ID,
+               o.MONTHLY_RATE,
+               o.START_DATE,
+               o.END_DATE,
+               o.SPECIAL_PRODUCT_YN,
+               o.SPECIAL_PRODUCT_SURCHARGE,
+               o.SPLIT_RATIO,
+               o.SPLIT_TARGET_ID,
+               otf.FEE_ITEM_CODE,
+               otf.FEE_ITEM_NAME,
+               otf.FEE_AMOUNT,
+               uf.USAGE_FEE_ITEM_CODE,
+               uf.USAGE_FEE_ITEM_NAME,
+               uf.UNIT_PRICE,
+               uf.USAGE_QUANTITY,
+               d.DISCOUNT_CODE,
+               d.DISCOUNT_NAME,
+               d.DISCOUNT_RATE
+          FROM ORDER_SUBSCRIPTION o
+          LEFT JOIN ORDER_ONE_TIME_FEE otf ON o.SUBSCRIPTION_ID = otf.SUBSCRIPTION_ID
+          LEFT JOIN ORDER_USAGE_FEE uf ON o.SUBSCRIPTION_ID = uf.SUBSCRIPTION_ID
+          LEFT JOIN ORDER_DISCOUNT d ON o.SUBSCRIPTION_ID = d.SUBSCRIPTION_ID
+         WHERE o.CONTRACT_ID = #{contractId}
+    </select>
+
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.billing.charge.calculation.impl.cache.ReferenceDataCacheTenantIsolationPropertyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-27T09:12:08.128Z" hostname="SKAXui-MacBookPro.local" time="0.156">
+  <properties/>
+  <testcase name="invalidatingTenantAShouldNotAffectTenantB" classname="com.billing.charge.calculation.impl.cache.ReferenceDataCacheTenantIsolationPropertyTest" time="0.086"/>
+  <testcase name="invalidateAllTenantAShouldNotAffectTenantB" classname="com.billing.charge.calculation.impl.cache.ReferenceDataCacheTenantIsolationPropertyTest" time="0.069"/>
+  <system-out><![CDATA[timestamp = 2026-02-27T18:12:08.214048, ReferenceDataCacheTenantIsolationPropertyTest:invalidatingTenantAShouldNotAffectTenantB = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 192        | # of all combined edge cases
+edge-cases#tried = 17         | # of edge cases tried in current run
+seed = 3719048562829297413    | random seed to reproduce generated values
+
+
+18:12:08.225 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_vnpPsr
+18:12:08.226 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_z
+18:12:08.227 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_kvaTTTp
+18:12:08.227 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_a
+18:12:08.228 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_l
+18:12:08.229 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_xyHbWakW
+18:12:08.230 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Qb
+18:12:08.230 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_yBUDZ
+18:12:08.231 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_oqg
+18:12:08.232 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Ze
+18:12:08.232 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.233 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_eTLOmS
+18:12:08.234 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_o
+18:12:08.234 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_aZbFord
+18:12:08.235 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.235 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_FUz
+18:12:08.236 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.236 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_JmvN
+18:12:08.236 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.237 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_ro
+18:12:08.238 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_UuC
+18:12:08.238 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_sa
+18:12:08.239 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_mzOgmWBs
+18:12:08.240 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_fdKzb
+18:12:08.241 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.242 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_z
+18:12:08.242 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_CPJVnBof
+18:12:08.243 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_WjV
+18:12:08.244 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_im
+18:12:08.244 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.244 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.245 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_CA
+18:12:08.246 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Isp
+18:12:08.246 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.246 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.247 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_AY
+18:12:08.248 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_lpK
+18:12:08.248 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_OZz
+18:12:08.249 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_v
+18:12:08.250 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_aLoizv
+18:12:08.251 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_SuxFwi
+18:12:08.252 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_WFeLlb
+18:12:08.252 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.253 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_GG
+18:12:08.253 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Tdz
+18:12:08.254 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_LHMgAnI
+18:12:08.254 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Z
+18:12:08.255 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_z
+18:12:08.256 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_uQZEGJV
+18:12:08.257 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_xUQWfUi
+18:12:08.258 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_JSEzy
+18:12:08.258 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Z
+18:12:08.258 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_a
+18:12:08.259 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_sV
+18:12:08.260 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_IgjtbBS
+18:12:08.261 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_fWzNX
+18:12:08.261 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_lraLmmkR
+18:12:08.262 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_TEizRlgm
+18:12:08.262 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_UZ
+18:12:08.263 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_MH
+18:12:08.263 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.264 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.265 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_jL
+18:12:08.265 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_zxpo
+18:12:08.266 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_RLcZ
+18:12:08.266 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_NBA
+18:12:08.267 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_eLGJ
+18:12:08.268 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.268 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.269 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_gmEPPPw
+18:12:08.270 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_XXSrK
+18:12:08.270 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_a
+18:12:08.270 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.271 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_vRbDoo
+18:12:08.271 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.272 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_emDPUr
+18:12:08.272 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_v
+18:12:08.273 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_D
+18:12:08.273 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_a
+18:12:08.274 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Gzu
+18:12:08.274 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_MrAXF
+18:12:08.275 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_LEsCcjYU
+18:12:08.275 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_mbA
+18:12:08.275 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_VWUanv
+18:12:08.276 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_DvkmHK
+18:12:08.276 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_qquhADB
+18:12:08.277 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Do
+18:12:08.277 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_PIMQpTZy
+18:12:08.278 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_o
+18:12:08.278 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_BgKA
+18:12:08.279 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_NmLyQu
+18:12:08.279 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.280 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_hsT
+18:12:08.280 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.281 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_ns
+18:12:08.281 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_A
+18:12:08.282 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_NVyjzgJq
+18:12:08.283 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_Au
+18:12:08.283 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_NX
+18:12:08.284 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 테넌트 전체 캐시 무효화: tenantId=T_JNae
+timestamp = 2026-02-27T18:12:08.284731, ReferenceDataCacheTenantIsolationPropertyTest:invalidateAllTenantAShouldNotAffectTenantB = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 192        | # of all combined edge cases
+edge-cases#tried = 17         | # of edge cases tried in current run
+seed = -2957694516831392959   | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[2월 27, 2026 6:12:08 오후 net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+정보: Edge case generation exceeds number of tries. Stopped after 192 generated cases.
+2월 27, 2026 6:12:08 오후 net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+정보: Edge case generation exceeds number of tries. Stopped after 192 generated cases.
+]]></system-err>
+</testsuite>

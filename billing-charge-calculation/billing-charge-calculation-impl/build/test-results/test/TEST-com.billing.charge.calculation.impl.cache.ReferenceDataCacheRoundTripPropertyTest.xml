@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.billing.charge.calculation.impl.cache.ReferenceDataCacheRoundTripPropertyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-27T09:12:08.023Z" hostname="SKAXui-MacBookPro.local" time="0.103">
+  <properties/>
+  <testcase name="preloadedDataShouldBeRetrievableByKey" classname="com.billing.charge.calculation.impl.cache.ReferenceDataCacheRoundTripPropertyTest" time="0.065"/>
+  <testcase name="cachedDataShouldMatchOriginalOnSubsequentQuery" classname="com.billing.charge.calculation.impl.cache.ReferenceDataCacheRoundTripPropertyTest" time="0.038"/>
+  <system-out><![CDATA[18:12:08.033 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_LIAzNBmQcz, keys=1
+18:12:08.038 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_z, keys=1
+18:12:08.038 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_JAOayFkaVx, keys=1
+18:12:08.039 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_zJt, keys=1
+18:12:08.040 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_ZHNCsoq, keys=1
+18:12:08.040 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_CwJkkUEWq, keys=1
+18:12:08.041 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.041 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_am, keys=1
+18:12:08.041 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.042 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_a, keys=1
+18:12:08.042 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_vP, keys=1
+18:12:08.043 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_jBZQ, keys=1
+18:12:08.043 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_KqVdqk, keys=1
+18:12:08.044 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.044 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_XtpPWddva, keys=1
+18:12:08.045 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_Z, keys=1
+18:12:08.045 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.045 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_p, keys=1
+18:12:08.046 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_S, keys=1
+18:12:08.046 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_msBaaUidU, keys=1
+18:12:08.047 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_lydqNcUVnh, keys=1
+18:12:08.047 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.048 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_khYlVFYe, keys=1
+18:12:08.049 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_GFHXw, keys=1
+18:12:08.049 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_a, keys=1
+18:12:08.049 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_D, keys=1
+18:12:08.050 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_a, keys=1
+18:12:08.050 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_fEgUbehoop, keys=1
+18:12:08.051 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_Gg, keys=1
+18:12:08.051 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_hyvip, keys=1
+18:12:08.052 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_IliVyZR, keys=1
+18:12:08.052 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.053 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_ZU, keys=1
+18:12:08.053 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.054 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_Z, keys=1
+18:12:08.054 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_GDeZlVM, keys=1
+18:12:08.054 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_lbxg, keys=1
+18:12:08.055 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_zP, keys=1
+18:12:08.055 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_BK, keys=1
+18:12:08.056 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_snRfDL, keys=1
+18:12:08.056 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_tKqiJINc, keys=1
+18:12:08.057 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_LZjxX, keys=1
+18:12:08.057 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_cL, keys=1
+18:12:08.058 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_nx, keys=1
+18:12:08.058 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_stHCTm, keys=1
+18:12:08.059 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_USlCLyWLle, keys=1
+18:12:08.059 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_aHhkY, keys=1
+18:12:08.059 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_gDAhmH, keys=1
+18:12:08.060 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_lZIMLVGb, keys=1
+18:12:08.060 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_jqliWpIX, keys=1
+18:12:08.061 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_evjnCsl, keys=1
+18:12:08.061 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_NBUB, keys=1
+18:12:08.062 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_ToO, keys=1
+18:12:08.062 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_dO, keys=1
+18:12:08.062 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_fmDi, keys=1
+18:12:08.063 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_LhoEHybbs, keys=1
+18:12:08.063 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_QNEj, keys=1
+18:12:08.064 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_ut, keys=1
+18:12:08.064 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_d, keys=1
+18:12:08.065 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_uIUdEWlab, keys=1
+18:12:08.065 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.066 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_eknzBNpc, keys=1
+18:12:08.066 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.067 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_lnziNi, keys=1
+18:12:08.067 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_zvhM, keys=1
+18:12:08.068 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_SWPm, keys=1
+18:12:08.068 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_OMxmDHfmig, keys=1
+18:12:08.069 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_R, keys=1
+18:12:08.069 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_nrB, keys=1
+18:12:08.070 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_dbCipk, keys=1
+18:12:08.070 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_XgrNMXHE, keys=1
+18:12:08.071 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.071 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_lath, keys=1
+18:12:08.072 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_evFiOYuMZ, keys=1
+18:12:08.072 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.072 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.073 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_TZlDr, keys=1
+18:12:08.073 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_pzAk, keys=1
+18:12:08.074 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.074 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_XeAMWzKjW, keys=1
+18:12:08.075 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_ICkq, keys=1
+18:12:08.076 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_AZ, keys=1
+18:12:08.076 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.076 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.076 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.077 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_ifFflV, keys=1
+18:12:08.078 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_oTGEuMsvK, keys=1
+18:12:08.078 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.079 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_R, keys=1
+18:12:08.080 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_TXFYtU, keys=1
+18:12:08.080 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_oOfd, keys=1
+18:12:08.081 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_VDBHp, keys=1
+18:12:08.082 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_FMa, keys=1
+18:12:08.083 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_QZiw, keys=1
+18:12:08.083 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_A, keys=1
+18:12:08.084 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_lH, keys=1
+18:12:08.085 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_QqVUspou, keys=1
+18:12:08.085 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_FeQKTlL, keys=1
+18:12:08.086 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_nUqOYZsqcz, keys=1
+18:12:08.087 [Test worker] INFO com.billing.charge.calculation.impl.cache.CaffeineReferenceDataCache -- 기준정보 사전 적재 완료: tenantId=TENANT_buZyFxAyGZ, keys=1
+timestamp = 2026-02-27T18:12:08.087923, ReferenceDataCacheRoundTripPropertyTest:preloadedDataShouldBeRetrievableByKey = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 128        | # of all combined edge cases
+edge-cases#tried = 16         | # of edge cases tried in current run
+seed = 8750780005320267758    | random seed to reproduce generated values
+
+
+timestamp = 2026-02-27T18:12:08.126612, ReferenceDataCacheRoundTripPropertyTest:cachedDataShouldMatchOriginalOnSubsequentQuery = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 128        | # of all combined edge cases
+edge-cases#tried = 20         | # of edge cases tried in current run
+seed = 2629772668074732477    | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[2월 27, 2026 6:12:08 오후 net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+정보: Edge case generation exceeds number of tries. Stopped after 128 generated cases.
+2월 27, 2026 6:12:08 오후 net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+정보: Edge case generation exceeds number of tries. Stopped after 128 generated cases.
+]]></system-err>
+</testsuite>

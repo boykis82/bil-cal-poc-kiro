@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    username: billing
+    password: billing
+  batch:
+    jdbc:
+      initialize-schema: never
+    job:
+      enabled: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.billing.charge.calculation.internal.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+# Caffeine 캐시 설정
+charge-calculation:
+  cache:
+    maximum-size: 10000
+    expire-after-write-hours: 1
