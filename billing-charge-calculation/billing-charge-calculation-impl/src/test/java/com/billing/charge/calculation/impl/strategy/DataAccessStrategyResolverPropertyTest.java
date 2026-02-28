@@ -7,6 +7,8 @@ import com.billing.charge.calculation.api.exception.UnsupportedUseCaseException;
 import com.billing.charge.calculation.internal.model.ChargeInput;
 import com.billing.charge.calculation.internal.model.ChargeResult;
 import com.billing.charge.calculation.internal.strategy.DataAccessStrategy;
+import com.billing.charge.calculation.internal.dataloader.ChargeItemDataLoader;
+import com.billing.charge.calculation.internal.dataloader.ContractBaseLoader;
 import net.jqwik.api.*;
 
 import java.util.Arrays;
@@ -99,6 +101,16 @@ class DataAccessStrategyResolverPropertyTest {
 
         @Override
         public void updateProcessingStatus(String chargeItemId, ProcessingStatus status) {
+        }
+
+        @Override
+        public ContractBaseLoader getContractBaseLoader() {
+            throw new UnsupportedOperationException("Not used in test");
+        }
+
+        @Override
+        public List<ChargeItemDataLoader> getChargeItemDataLoaders() {
+            throw new UnsupportedOperationException("Not used in test");
         }
     }
 }

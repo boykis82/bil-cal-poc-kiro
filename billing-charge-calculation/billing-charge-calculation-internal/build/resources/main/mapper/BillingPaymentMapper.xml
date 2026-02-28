@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.BillingPaymentMapper">
+
+    <!-- 청구정보 resultMap -->
+    <resultMap id="billingInfoResultMap"
+               type="com.billing.charge.calculation.internal.model.BillingInfo">
+        <constructor>
+            <arg column="BILLING_ID" javaType="java.lang.String"/>
+            <arg column="CONTRACT_ID" javaType="java.lang.String"/>
+            <arg column="PREVIOUS_BILLED_AMOUNT" javaType="java.math.BigDecimal"/>
+            <arg column="UNPAID_AMOUNT" javaType="java.math.BigDecimal"/>
+            <arg column="DUE_DATE" javaType="java.time.LocalDate"/>
+            <arg column="CURRENT_DATE" javaType="java.time.LocalDate"/>
+            <arg column="AUTO_PAY_ENABLED" javaType="boolean"/>
+            <arg column="AUTO_PAY_DISCOUNT_RATE" javaType="java.math.BigDecimal"/>
+        </constructor>
+    </resultMap>
+
+    <!-- 수납정보 resultMap -->
+    <resultMap id="paymentInfoResultMap"
+               type="com.billing.charge.calculation.internal.model.PaymentInfo">
+        <constructor>
+            <arg column="PAYMENT_ID" javaType="java.lang.String"/>
+            <arg column="CONTRACT_ID" javaType="java.lang.String"/>
+            <arg column="PAID_AMOUNT" javaType="java.math.BigDecimal"/>
+            <arg column="PAYMENT_DATE" javaType="java.time.LocalDate"/>
+        </constructor>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 청구정보 조회 -->
+    <select id="selectBillingInfos" resultMap="billingInfoResultMap">
+        SELECT b.BILLING_ID,
+               b.CONTRACT_ID,
+               b.PREVIOUS_BILLED_AMOUNT,
+               b.UNPAID_AMOUNT,
+               b.DUE_DATE,
+               SYSDATE AS CURRENT_DATE,
+               b.AUTO_PAY_ENABLED,
+               b.AUTO_PAY_DISCOUNT_RATE
+          FROM BILLING_INFO b
+         WHERE b.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+    <!-- 계약ID 리스트로 수납정보 조회 -->
+    <select id="selectPaymentInfos" resultMap="paymentInfoResultMap">
+        SELECT p.PAYMENT_ID,
+               p.CONTRACT_ID,
+               p.PAID_AMOUNT,
+               p.PAYMENT_DATE
+          FROM PAYMENT_INFO p
+         WHERE p.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

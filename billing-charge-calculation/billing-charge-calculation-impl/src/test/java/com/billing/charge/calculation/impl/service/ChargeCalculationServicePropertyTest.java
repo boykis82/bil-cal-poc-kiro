@@ -7,12 +7,15 @@ import com.billing.charge.calculation.api.enums.ProcessingStatus;
 import com.billing.charge.calculation.api.enums.ProductType;
 import com.billing.charge.calculation.api.enums.UseCaseType;
 import com.billing.charge.calculation.impl.pipeline.Pipeline;
+import com.billing.charge.calculation.impl.dataloader.DataLoadOrchestrator;
 import com.billing.charge.calculation.impl.pipeline.PipelineConfigurator;
 import com.billing.charge.calculation.impl.pipeline.PipelineEngine;
 import com.billing.charge.calculation.impl.strategy.DataAccessStrategyResolver;
 import com.billing.charge.calculation.internal.model.ChargeInput;
 import com.billing.charge.calculation.internal.model.ChargeResult;
 import com.billing.charge.calculation.internal.strategy.DataAccessStrategy;
+import com.billing.charge.calculation.internal.dataloader.ChargeItemDataLoader;
+import com.billing.charge.calculation.internal.dataloader.ContractBaseLoader;
 import net.jqwik.api.*;
 
 import java.time.LocalDate;
@@ -49,7 +52,8 @@ class ChargeCalculationServicePropertyTest {
 
         PipelineEngine engine = new PipelineEngine();
 
-        this.service = new ChargeCalculationServiceImpl(configurator, engine, resolver);
+        DataLoadOrchestrator orchestrator = new DataLoadOrchestrator(List.of(), List.of());
+        this.service = new ChargeCalculationServiceImpl(configurator, engine, resolver, orchestrator);
     }
 
     /**
@@ -124,6 +128,16 @@ class ChargeCalculationServicePropertyTest {
 
         @Override
         public void updateProcessingStatus(String chargeItemId, ProcessingStatus status) {
+        }
+
+        @Override
+        public ContractBaseLoader getContractBaseLoader() {
+            throw new UnsupportedOperationException("Not used in test");
+        }
+
+        @Override
+        public List<ChargeItemDataLoader> getChargeItemDataLoaders() {
+            throw new UnsupportedOperationException("Not used in test");
         }
     }
 }

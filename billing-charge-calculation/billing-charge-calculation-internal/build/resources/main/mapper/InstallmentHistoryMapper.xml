@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.InstallmentHistoryMapper">
+
+    <!-- 할부이력 resultMap -->
+    <resultMap id="installmentHistoryResultMap"
+               type="com.billing.charge.calculation.internal.model.InstallmentHistory">
+        <result property="contractId" column="CONTRACT_ID"/>
+        <result property="installmentId" column="INSTALLMENT_ID"/>
+        <result property="installmentAmount" column="INSTALLMENT_AMOUNT"/>
+        <result property="currentInstallment" column="CURRENT_INSTALLMENT"/>
+        <result property="totalInstallments" column="TOTAL_INSTALLMENTS"/>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 할부이력 조회 -->
+    <select id="selectInstallmentHistories" resultMap="installmentHistoryResultMap">
+        SELECT ih.CONTRACT_ID,
+               ih.INSTALLMENT_ID,
+               ih.INSTALLMENT_AMOUNT,
+               ih.CURRENT_INSTALLMENT,
+               ih.TOTAL_INSTALLMENTS
+          FROM INSTALLMENT_HISTORY ih
+         WHERE ih.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

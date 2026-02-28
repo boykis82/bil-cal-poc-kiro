@@ -7,6 +7,8 @@ import com.billing.charge.calculation.internal.context.ChargeContext;
 import com.billing.charge.calculation.internal.model.ChargeInput;
 import com.billing.charge.calculation.internal.step.ChargeItemStep;
 import com.billing.charge.calculation.internal.strategy.DataAccessStrategy;
+import com.billing.charge.calculation.internal.dataloader.ChargeItemDataLoader;
+import com.billing.charge.calculation.internal.dataloader.ContractBaseLoader;
 import com.billing.charge.calculation.internal.model.ChargeResult;
 import net.jqwik.api.*;
 
@@ -134,6 +136,16 @@ class PipelineEnginePropertyTest {
 
         @Override
         public void updateProcessingStatus(String chargeItemId, ProcessingStatus status) {
+        }
+
+        @Override
+        public ContractBaseLoader getContractBaseLoader() {
+            throw new UnsupportedOperationException("Not used in test");
+        }
+
+        @Override
+        public List<ChargeItemDataLoader> getChargeItemDataLoaders() {
+            throw new UnsupportedOperationException("Not used in test");
         }
     }
 

@@ -146,7 +146,7 @@ class PostProcessStepResultTypePropertyTest {
                             unpaid, dueDate, now, false, null);
 
                     SubscriptionInfo sub = new SubscriptionInfo(
-                            "SUB001", "PROD001", "SUBSCRIBER001",
+                            "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                             BigDecimal.ZERO, now.minusMonths(1), now, "N", null,
                             List.of(), List.of(), List.of(), null, null);
 
@@ -172,7 +172,7 @@ class PostProcessStepResultTypePropertyTest {
                             true, discountRate);
 
                     SubscriptionInfo sub = new SubscriptionInfo(
-                            "SUB001", "PROD001", "SUBSCRIBER001",
+                            "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                             BigDecimal.ZERO, now.minusMonths(1), now, "N", null,
                             List.of(), List.of(), List.of(), null, null);
 
@@ -200,7 +200,7 @@ class PostProcessStepResultTypePropertyTest {
                     LocalDate now = LocalDate.of(2024, 6, 15);
 
                     SubscriptionInfo sub = new SubscriptionInfo(
-                            "SUB001", "PROD001", "SUBSCRIBER001",
+                            "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                             BigDecimal.ZERO, now.minusMonths(1), now, "N", null,
                             List.of(), List.of(), List.of(), null, null);
 
@@ -226,11 +226,11 @@ class PostProcessStepResultTypePropertyTest {
                             LocalDate now = LocalDate.of(2024, 6, 15);
 
                             List<PrepaidRecord> records = amounts.stream()
-                                    .map(a -> new PrepaidRecord("PRE_" + a, a))
+                                    .map(a -> new PrepaidRecord("C001", "PRE_" + a, a))
                                     .toList();
 
                             SubscriptionInfo sub = new SubscriptionInfo(
-                                    "SUB001", "PROD001", "SUBSCRIBER001",
+                                    "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                                     BigDecimal.ZERO, now.minusMonths(1), now, "N", null,
                                     List.of(), List.of(), List.of(), null, null);
 
@@ -252,7 +252,7 @@ class PostProcessStepResultTypePropertyTest {
                     LocalDate now = LocalDate.of(2024, 6, 15);
 
                     SubscriptionInfo sub = new SubscriptionInfo(
-                            "SUB001", "PROD001", "SUBSCRIBER001",
+                            "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                             BigDecimal.ZERO, now.minusMonths(1), now, "N", null,
                             List.of(), List.of(), List.of(), splitRatio, "TARGET_001");
 

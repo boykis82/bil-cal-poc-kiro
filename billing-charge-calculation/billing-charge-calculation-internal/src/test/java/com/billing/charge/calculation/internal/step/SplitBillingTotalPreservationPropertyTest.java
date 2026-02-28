@@ -92,7 +92,7 @@ class SplitBillingTotalPreservationPropertyTest {
                     LocalDate now = LocalDate.of(2024, 6, 15);
 
                     SubscriptionInfo sub = new SubscriptionInfo(
-                            "SUB001", "PROD001", "SUBSCRIBER001",
+                            "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                             BigDecimal.ZERO, now.minusMonths(1), now, "N", null,
                             List.of(), List.of(), List.of(), splitRatio, "TARGET_001");
 

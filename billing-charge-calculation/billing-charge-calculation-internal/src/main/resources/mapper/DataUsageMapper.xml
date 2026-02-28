@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.DataUsageMapper">
+
+    <!-- 데이터 사용량 resultMap -->
+    <resultMap id="dataUsageResultMap"
+               type="com.billing.charge.calculation.internal.model.DataUsage">
+        <result property="contractId" column="CONTRACT_ID"/>
+        <result property="usageId" column="USAGE_ID"/>
+        <result property="dataVolume" column="DATA_VOLUME"/>
+        <result property="unitPrice" column="UNIT_PRICE"/>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 데이터 사용량 조회 -->
+    <select id="selectDataUsages" resultMap="dataUsageResultMap">
+        SELECT du.CONTRACT_ID,
+               du.USAGE_ID,
+               du.DATA_VOLUME,
+               du.UNIT_PRICE
+          FROM DATA_USAGE du
+         WHERE du.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

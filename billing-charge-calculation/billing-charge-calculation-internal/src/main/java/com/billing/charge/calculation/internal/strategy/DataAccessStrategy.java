@@ -3,8 +3,12 @@ package com.billing.charge.calculation.internal.strategy;
 import com.billing.charge.calculation.api.dto.ContractInfo;
 import com.billing.charge.calculation.api.enums.ProcessingStatus;
 import com.billing.charge.calculation.api.enums.UseCaseType;
+import com.billing.charge.calculation.internal.dataloader.ChargeItemDataLoader;
+import com.billing.charge.calculation.internal.dataloader.ContractBaseLoader;
 import com.billing.charge.calculation.internal.model.ChargeInput;
 import com.billing.charge.calculation.internal.model.ChargeResult;
+
+import java.util.List;
 
 /**
  * 요금 계산 유스케이스별 데이터 읽기/쓰기 전략.
@@ -35,4 +39,14 @@ public interface DataAccessStrategy {
      * 저장이 불필요한 전략은 no-op.
      */
     void updateProcessingStatus(String chargeItemId, ProcessingStatus status);
+
+    /**
+     * 이 전략에 해당하는 ContractBaseLoader를 반환한다.
+     */
+    ContractBaseLoader getContractBaseLoader();
+
+    /**
+     * 이 전략에 해당하는 ChargeItemDataLoader 목록을 반환한다.
+     */
+    List<ChargeItemDataLoader> getChargeItemDataLoaders();
 }

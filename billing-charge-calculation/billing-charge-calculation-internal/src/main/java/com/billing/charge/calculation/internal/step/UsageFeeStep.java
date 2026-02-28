@@ -3,7 +3,9 @@ package com.billing.charge.calculation.internal.step;
 import com.billing.charge.calculation.api.enums.ChargeItemType;
 import com.billing.charge.calculation.api.model.FlatChargeResult;
 import com.billing.charge.calculation.internal.context.ChargeContext;
-import com.billing.charge.calculation.internal.model.SubscriptionInfo;
+import com.billing.charge.calculation.internal.model.DataUsage;
+import com.billing.charge.calculation.internal.model.UsageChargeDomain;
+import com.billing.charge.calculation.internal.model.VoiceUsage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,8 +17,9 @@ import java.util.Map;
 
 /**
  * 통화료/종량료 계산 Step.
- * 가입정보와 기준정보를 기반으로 사용량 기반 요금을 계산한다.
- * 단가 × 사용량으로 FlatChargeResult를 생성한다.
+ * ChargeInput의 usageChargeDataMap에서 등록된 UsageChargeDomain 유형별 데이터를 읽어
+ * 각 유형에 대한 FlatChargeResult를 생성한다.
+ * 데이터가 없으면 안전하게 생략한다 (예외 없이 return).
  */
 @Slf4j
 @Component
@@ -38,31 +41,33 @@ public class UsageFeeStep implements ChargeItemStep {
 
     @Override
     public void process(ChargeContext context) {
-        SubscriptionInfo subscription = context.getChargeInput().getSubscriptionInfo();
-        if (subscription == null) {
-            log.debug("통화료/종량료 계산 생략: 가입정보 없음");
+        Map<Class<? extends UsageChargeDomain>, List<? extends UsageChargeDomain>> dataMap =
+                context.getChargeInput().getUsageChargeDataMap();
+
+        if (dataMap == null || dataMap.isEmpty()) {
+            log.debug("통화료/종량료 계산 생략: 사용량 데이터 없음");
             return;
         }
 
-        List<SubscriptionInfo.UsageFeeItem> usageItems = subscription.usageFeeItems();
-        if (usageItems == null || usageItems.isEmpty()) {
-            log.debug("통화료/종량료 계산 생략: 사용량 요금 항목 없음");
-            return;
+        for (var entry : dataMap.entrySet()) {
+            processUsageChargeType(entry.getKey(), entry.getValue(), context);
         }
+    }
 
-        for (SubscriptionInfo.UsageFeeItem item : usageItems) {
-            if (item.unitPrice() == null || item.usageQuantity() == null) {
-                log.debug("통화료/종량료 항목 단가 또는 사용량 없음, 건너뜀: feeItemCode={}", item.feeItemCode());
+    private void processUsageChargeType(
+            Class<? extends UsageChargeDomain> type,
+            List<? extends UsageChargeDomain> items,
+            ChargeContext context) {
+        for (UsageChargeDomain item : items) {
+            BigDecimal amount = resolveAmount(item);
+            if (amount == null) {
+                log.debug("통화료/종량료 항목 금액 산출 불가, 건너뜀: type={}", type.getSimpleName());
                 continue;
             }
 
-            BigDecimal amount = item.unitPrice()
-                    .multiply(item.usageQuantity())
-                    .setScale(0, RoundingMode.HALF_UP);
-
             FlatChargeResult result = new FlatChargeResult(
-                    item.feeItemCode(),
-                    item.feeItemName(),
+                    type.getSimpleName(),
+                    type.getSimpleName(),
                     ChargeItemType.USAGE_FEE,
                     amount,
                     "KRW",
@@ -70,6 +75,19 @@ public class UsageFeeStep implements ChargeItemStep {
 
             context.addFlatResult(result);
         }
+    }
+
+    private BigDecimal resolveAmount(UsageChargeDomain item) {
+        if (item instanceof VoiceUsage vu) {
+            if (vu.getDuration() != null && vu.getUnitPrice() != null) {
+                return vu.getUnitPrice().multiply(vu.getDuration()).setScale(0, RoundingMode.HALF_UP);
+            }
+        } else if (item instanceof DataUsage du) {
+            if (du.getDataVolume() != null && du.getUnitPrice() != null) {
+                return du.getUnitPrice().multiply(du.getDataVolume()).setScale(0, RoundingMode.HALF_UP);
+            }
+        }
+        return null;
     }
 
     @Override

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.billing.charge.calculation.internal.step.StepAllRegisteredTypesProcessedPropertyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-28T10:13:38.856Z" hostname="realimpactui-MacBookAir.local" time="0.135">
+  <properties/>
+  <testcase name="usageFeeStepShouldProduceResultsForAllRegisteredTypes" classname="com.billing.charge.calculation.internal.step.StepAllRegisteredTypesProcessedPropertyTest" time="0.123"/>
+  <testcase name="oneTimeFeeStepShouldProduceResultsForAllRegisteredTypes" classname="com.billing.charge.calculation.internal.step.StepAllRegisteredTypesProcessedPropertyTest" time="0.011"/>
+  <system-out><![CDATA[timestamp = 2026-02-28T19:13:38.975511, StepAllRegisteredTypesProcessedPropertyTest:usageFeeStepShouldProduceResultsForAllRegisteredTypes = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 32         | # of all combined edge cases
+edge-cases#tried = 16         | # of edge cases tried in current run
+seed = 5021232585082959853    | random seed to reproduce generated values
+
+
+timestamp = 2026-02-28T19:13:38.990669, StepAllRegisteredTypesProcessedPropertyTest:oneTimeFeeStepShouldProduceResultsForAllRegisteredTypes = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 8          | # of all combined edge cases
+edge-cases#tried = 6          | # of edge cases tried in current run
+seed = -8435461425885327285   | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

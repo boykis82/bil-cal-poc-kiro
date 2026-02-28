@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="OLTP 단건 처리 동일 인터페이스 동작 확인" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-02-28T10:17:09.242Z" hostname="realimpactui-MacBookAir.local" time="0.002">
+  <properties/>
+  <testcase name="단건 계약정보로 모든 전략의 getContractBaseLoader/getChargeItemDataLoaders가 정상 동작해야 한다" classname="com.billing.charge.calculation.impl.strategy.DataAccessStrategyLoaderSelectionTest$OltpSingleContractTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

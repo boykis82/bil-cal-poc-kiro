@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.PrepaidMapper">
+
+    <!-- 선납내역 resultMap -->
+    <resultMap id="prepaidRecordResultMap"
+               type="com.billing.charge.calculation.internal.model.PrepaidRecord">
+        <constructor>
+            <arg column="CONTRACT_ID" javaType="java.lang.String"/>
+            <arg column="PREPAID_ID" javaType="java.lang.String"/>
+            <arg column="PREPAID_AMOUNT" javaType="java.math.BigDecimal"/>
+        </constructor>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 선납내역 조회 -->
+    <select id="selectPrepaidRecords" resultMap="prepaidRecordResultMap">
+        SELECT pr.CONTRACT_ID,
+               pr.PREPAID_ID,
+               pr.PREPAID_AMOUNT
+          FROM PREPAID_RECORD pr
+         WHERE pr.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

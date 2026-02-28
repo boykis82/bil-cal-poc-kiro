@@ -7,6 +7,7 @@ public enum ChargeItemType {
     MONTHLY_FEE, // 월정액
     ONE_TIME_FEE, // 일회성
     USAGE_FEE, // 통화료/종량료
+    DISCOUNT, // 할인 (가입정보 로딩)
     PERIOD_DISCOUNT, // 할인1 (기간 존재)
     FLAT_DISCOUNT, // 할인2 (기간 미존재)
     LATE_FEE, // 연체가산금

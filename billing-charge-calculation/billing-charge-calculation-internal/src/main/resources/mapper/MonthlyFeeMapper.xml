@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.MonthlyFeeMapper">
+
+    <!-- 월정액용 간소화된 가입정보 resultMap (일회성/사용량/할인 항목 제외) -->
+    <resultMap id="subscriptionInfoResultMap"
+               type="com.billing.charge.calculation.internal.model.SubscriptionInfo">
+        <constructor>
+            <arg column="CONTRACT_ID" javaType="java.lang.String"/>
+            <arg column="SUBSCRIPTION_ID" javaType="java.lang.String"/>
+            <arg column="PRODUCT_ID" javaType="java.lang.String"/>
+            <arg column="SUBSCRIBER_ID" javaType="java.lang.String"/>
+            <arg column="MONTHLY_RATE" javaType="java.math.BigDecimal"/>
+            <arg column="START_DATE" javaType="java.time.LocalDate"/>
+            <arg column="END_DATE" javaType="java.time.LocalDate"/>
+            <arg column="SPECIAL_PRODUCT_YN" javaType="java.lang.String"/>
+            <arg column="SPECIAL_PRODUCT_SURCHARGE" javaType="java.math.BigDecimal"/>
+            <arg column="ONE_TIME_FEE_ITEMS" javaType="java.util.List"/>
+            <arg column="USAGE_FEE_ITEMS" javaType="java.util.List"/>
+            <arg column="DISCOUNT_ITEMS" javaType="java.util.List"/>
+            <arg column="SPLIT_RATIO" javaType="java.math.BigDecimal"/>
+            <arg column="SPLIT_TARGET_ID" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+
+    <!-- 정지이력 resultMap -->
+    <resultMap id="suspensionHistoryResultMap"
+               type="com.billing.charge.calculation.internal.model.SuspensionHistory">
+        <constructor>
+            <arg column="CONTRACT_ID" javaType="java.lang.String"/>
+            <arg column="SUSPENSION_ID" javaType="java.lang.String"/>
+            <arg column="START_DATE" javaType="java.time.LocalDate"/>
+            <arg column="END_DATE" javaType="java.time.LocalDate"/>
+            <arg column="REASON" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 상품 가입정보 조회 (기준정보 join 없음, 일회성/사용량/할인 항목 제외) -->
+    <select id="selectSubscriptionInfos" resultMap="subscriptionInfoResultMap">
+        SELECT s.CONTRACT_ID,
+               s.SUBSCRIPTION_ID,
+               s.PRODUCT_ID,
+               s.SUBSCRIBER_ID,
+               s.MONTHLY_RATE,
+               s.START_DATE,
+               s.END_DATE,
+               s.SPECIAL_PRODUCT_YN,
+               s.SPECIAL_PRODUCT_SURCHARGE,
+               NULL AS ONE_TIME_FEE_ITEMS,
+               NULL AS USAGE_FEE_ITEMS,
+               NULL AS DISCOUNT_ITEMS,
+               s.SPLIT_RATIO,
+               s.SPLIT_TARGET_ID
+          FROM SUBSCRIPTION s
+         WHERE s.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+    <!-- 계약ID 리스트로 정지이력 조회 -->
+    <select id="selectSuspensionHistories" resultMap="suspensionHistoryResultMap">
+        SELECT sh.CONTRACT_ID,
+               sh.SUSPENSION_ID,
+               sh.START_DATE,
+               sh.END_DATE,
+               sh.REASON
+          FROM SUSPENSION_HISTORY sh
+         WHERE sh.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.PenaltyFeeMapper">
+
+    <!-- 위약금 resultMap -->
+    <resultMap id="penaltyFeeResultMap"
+               type="com.billing.charge.calculation.internal.model.PenaltyFee">
+        <result property="contractId" column="CONTRACT_ID"/>
+        <result property="penaltyId" column="PENALTY_ID"/>
+        <result property="penaltyAmount" column="PENALTY_AMOUNT"/>
+        <result property="penaltyReason" column="PENALTY_REASON"/>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 위약금 조회 -->
+    <select id="selectPenaltyFees" resultMap="penaltyFeeResultMap">
+        SELECT pf.CONTRACT_ID,
+               pf.PENALTY_ID,
+               pf.PENALTY_AMOUNT,
+               pf.PENALTY_REASON
+          FROM PENALTY_FEE pf
+         WHERE pf.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

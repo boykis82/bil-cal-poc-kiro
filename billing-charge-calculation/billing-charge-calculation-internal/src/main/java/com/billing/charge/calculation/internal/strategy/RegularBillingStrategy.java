@@ -3,6 +3,13 @@ package com.billing.charge.calculation.internal.strategy;
 import com.billing.charge.calculation.api.dto.ContractInfo;
 import com.billing.charge.calculation.api.enums.ProcessingStatus;
 import com.billing.charge.calculation.api.enums.UseCaseType;
+import com.billing.charge.calculation.internal.dataloader.BillingPaymentDataLoader;
+import com.billing.charge.calculation.internal.dataloader.ChargeItemDataLoader;
+import com.billing.charge.calculation.internal.dataloader.ContractBaseLoader;
+import com.billing.charge.calculation.internal.dataloader.DiscountDataLoader;
+import com.billing.charge.calculation.internal.dataloader.MasterContractBaseLoader;
+import com.billing.charge.calculation.internal.dataloader.MonthlyFeeDataLoader;
+import com.billing.charge.calculation.internal.dataloader.PrepaidDataLoader;
 import com.billing.charge.calculation.internal.mapper.ChargeResultMapper;
 import com.billing.charge.calculation.internal.mapper.MasterTableMapper;
 import com.billing.charge.calculation.internal.model.ChargeInput;
@@ -10,6 +17,8 @@ import com.billing.charge.calculation.internal.model.ChargeResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 정기청구 유스케이스 데이터 접근 전략.
@@ -22,6 +31,11 @@ public class RegularBillingStrategy implements DataAccessStrategy {
 
     private final MasterTableMapper masterTableMapper;
     private final ChargeResultMapper chargeResultMapper;
+    private final MasterContractBaseLoader masterContractBaseLoader;
+    private final MonthlyFeeDataLoader monthlyFeeDataLoader;
+    private final DiscountDataLoader discountDataLoader;
+    private final BillingPaymentDataLoader billingPaymentDataLoader;
+    private final PrepaidDataLoader prepaidDataLoader;
 
     @Override
     public UseCaseType supportedUseCaseType() {
@@ -44,5 +58,15 @@ public class RegularBillingStrategy implements DataAccessStrategy {
     public void updateProcessingStatus(String chargeItemId, ProcessingStatus status) {
         log.debug("정기청구 - 처리 상태 갱신: chargeItemId={}, status={}", chargeItemId, status);
         chargeResultMapper.updateProcessingStatus(chargeItemId, status);
+    }
+
+    @Override
+    public ContractBaseLoader getContractBaseLoader() {
+        return masterContractBaseLoader;
+    }
+
+    @Override
+    public List<ChargeItemDataLoader> getChargeItemDataLoaders() {
+        return List.of(monthlyFeeDataLoader, discountDataLoader, billingPaymentDataLoader, prepaidDataLoader);
     }
 }

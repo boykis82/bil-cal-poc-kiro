@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.ContractBaseMapper">
+
+    <!-- 계약 기본정보 resultMap -->
+    <resultMap id="contractInfoResultMap"
+               type="com.billing.charge.calculation.api.dto.ContractInfo">
+        <constructor>
+            <arg column="CONTRACT_ID" javaType="java.lang.String"/>
+            <arg column="SUBSCRIBER_ID" javaType="java.lang.String"/>
+            <arg column="PRODUCT_ID" javaType="java.lang.String"/>
+            <arg column="BILLING_START_DATE" javaType="java.time.LocalDate"/>
+            <arg column="BILLING_END_DATE" javaType="java.time.LocalDate"/>
+        </constructor>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 기본 계약정보 조회 (기준정보 join 없음) -->
+    <select id="selectBaseContracts" resultMap="contractInfoResultMap">
+        SELECT s.CONTRACT_ID,
+               s.SUBSCRIBER_ID,
+               s.PRODUCT_ID,
+               s.START_DATE AS BILLING_START_DATE,
+               s.END_DATE AS BILLING_END_DATE
+          FROM SUBSCRIPTION s
+         WHERE s.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

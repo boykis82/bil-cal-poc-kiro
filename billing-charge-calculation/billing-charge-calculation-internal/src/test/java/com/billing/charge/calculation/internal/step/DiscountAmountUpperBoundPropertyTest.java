@@ -6,6 +6,7 @@ import com.billing.charge.calculation.api.model.FlatChargeResult;
 import com.billing.charge.calculation.api.model.PeriodChargeResult;
 import com.billing.charge.calculation.internal.context.ChargeContext;
 import com.billing.charge.calculation.internal.model.ChargeInput;
+import com.billing.charge.calculation.internal.model.DiscountSubscription;
 import com.billing.charge.calculation.internal.model.SubscriptionInfo;
 import net.jqwik.api.*;
 
@@ -126,19 +127,29 @@ class DiscountAmountUpperBoundPropertyTest {
                                         LocalDate start = LocalDate.of(year, month, 1);
                                         LocalDate end = start.plusMonths(1).minusDays(1);
 
-                                        SubscriptionInfo.DiscountItem discountItem = new SubscriptionInfo.DiscountItem(
-                                                        "DC001", "할인_DC001", discountRate);
+                                        DiscountSubscription discountSub = DiscountSubscription.builder()
+                                                        .contractId("C001")
+                                                        .discountId("DI001")
+                                                        .discountCode("DC001")
+                                                        .discountName("할인_DC001")
+                                                        .discountRate(discountRate)
+                                                        .startDate(start)
+                                                        .endDate(end)
+                                                        .build();
 
                                         SubscriptionInfo sub = new SubscriptionInfo(
-                                                        "SUB001", "PROD001", "SUBSCRIBER001",
+                                                        "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                                                         monthlyRate, start, end, "N", null,
-                                                        List.of(), List.of(), List.of(discountItem), null, null);
+                                                        List.of(), List.of(), List.of(), null, null);
 
                                         ChargeContext ctx = ChargeContext.of(
                                                         "TENANT_01",
                                                         new ContractInfo("C001", "SUB001", "PROD001", start, end),
-                                                        ChargeInput.builder().subscriptionInfo(sub)
-                                                                        .suspensionHistories(List.of()).build());
+                                                        ChargeInput.builder()
+                                                                        .subscriptionInfo(sub)
+                                                                        .suspensionHistories(List.of())
+                                                                        .discountSubscriptions(List.of(discountSub))
+                                                                        .build());
 
                                         // 원금성 PeriodChargeResult 사전 추가 (MonthlyFeeStep이 이미 실행된 상태 시뮬레이션)
                                         ctx.addPeriodResult(PeriodChargeResult.of("PROD001", ChargeItemType.MONTHLY_FEE,
@@ -156,20 +167,30 @@ class DiscountAmountUpperBoundPropertyTest {
                                 .as((amount, discountRate) -> {
                                         LocalDate now = LocalDate.of(2024, 1, 1);
 
-                                        SubscriptionInfo.DiscountItem discountItem = new SubscriptionInfo.DiscountItem(
-                                                        "DC002", "할인_DC002", discountRate);
+                                        DiscountSubscription discountSub = DiscountSubscription.builder()
+                                                        .contractId("C001")
+                                                        .discountId("DI002")
+                                                        .discountCode("DC002")
+                                                        .discountName("할인_DC002")
+                                                        .discountRate(discountRate)
+                                                        .startDate(now)
+                                                        .endDate(now.plusMonths(1))
+                                                        .build();
 
                                         SubscriptionInfo sub = new SubscriptionInfo(
-                                                        "SUB001", "PROD001", "SUBSCRIBER001",
+                                                        "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                                                         BigDecimal.ZERO, now, now.plusMonths(1), "N", null,
-                                                        List.of(), List.of(), List.of(discountItem), null, null);
+                                                        List.of(), List.of(), List.of(), null, null);
 
                                         ChargeContext ctx = ChargeContext.of(
                                                         "TENANT_01",
                                                         new ContractInfo("C001", "SUB001", "PROD001", now,
                                                                         now.plusMonths(1)),
-                                                        ChargeInput.builder().subscriptionInfo(sub)
-                                                                        .suspensionHistories(List.of()).build());
+                                                        ChargeInput.builder()
+                                                                        .subscriptionInfo(sub)
+                                                                        .suspensionHistories(List.of())
+                                                                        .discountSubscriptions(List.of(discountSub))
+                                                                        .build());
 
                                         // 원금성 FlatChargeResult 사전 추가 (압축 후 상태 시뮬레이션)
                                         ctx.addFlatResult(new FlatChargeResult(

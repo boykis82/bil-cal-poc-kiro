@@ -6,12 +6,20 @@ import com.billing.charge.calculation.api.model.FlatChargeResult;
 import com.billing.charge.calculation.api.model.PeriodChargeResult;
 import com.billing.charge.calculation.internal.context.ChargeContext;
 import com.billing.charge.calculation.internal.model.ChargeInput;
+import com.billing.charge.calculation.internal.model.DataUsage;
+import com.billing.charge.calculation.internal.model.InstallmentHistory;
+import com.billing.charge.calculation.internal.model.OneTimeChargeDomain;
+import com.billing.charge.calculation.internal.model.PenaltyFee;
 import com.billing.charge.calculation.internal.model.SubscriptionInfo;
+import com.billing.charge.calculation.internal.model.UsageChargeDomain;
+import com.billing.charge.calculation.internal.model.VoiceUsage;
 import net.jqwik.api.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -96,7 +104,7 @@ class ChargeItemStepResultTypePropertyTest {
                     LocalDate end = start.plusMonths(1).minusDays(1);
 
                     SubscriptionInfo sub = new SubscriptionInfo(
-                            "SUB001", "PROD001", "SUBSCRIBER001",
+                            "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                             rate, start, end, "N", null, List.of(), List.of(), List.of(), null, null);
 
                     return ChargeContext.of(
@@ -108,42 +116,51 @@ class ChargeItemStepResultTypePropertyTest {
 
     @Provide
     Arbitrary<ChargeContext> oneTimeFeeContexts() {
-        Arbitrary<List<SubscriptionInfo.OneTimeFeeItem>> feeItems = Combinators.combine(
+        Arbitrary<List<InstallmentHistory>> installments = Combinators.combine(
                 Arbitraries.strings().alpha().ofMinLength(3).ofMaxLength(10),
                 Arbitraries.integers().between(100, 50000).map(BigDecimal::valueOf))
-                .as((code, amount) -> new SubscriptionInfo.OneTimeFeeItem(code, "일회성_" + code, amount))
+                .as((id, amount) -> InstallmentHistory.builder()
+                        .contractId("C001")
+                        .installmentId(id)
+                        .installmentAmount(amount)
+                        .currentInstallment(1)
+                        .totalInstallments(12)
+                        .build())
                 .list().ofMinSize(1).ofMaxSize(5);
 
-        return feeItems.map(items -> {
+        return installments.map(items -> {
             LocalDate now = LocalDate.of(2024, 1, 1);
-            SubscriptionInfo sub = new SubscriptionInfo(
-                    "SUB001", "PROD001", "SUBSCRIBER001",
-                    BigDecimal.ZERO, now, now.plusMonths(1), "N", null, items, List.of(), List.of(), null, null);
+            Map<Class<? extends OneTimeChargeDomain>, List<? extends OneTimeChargeDomain>> dataMap = new HashMap<>();
+            dataMap.put(InstallmentHistory.class, items);
             return ChargeContext.of(
                     "TENANT_01",
                     new ContractInfo("C001", "SUB001", "PROD001", now, now.plusMonths(1)),
-                    ChargeInput.builder().subscriptionInfo(sub).suspensionHistories(List.of()).build());
+                    ChargeInput.builder().oneTimeChargeDataMap(dataMap).build());
         });
     }
 
     @Provide
     Arbitrary<ChargeContext> usageFeeContexts() {
-        Arbitrary<List<SubscriptionInfo.UsageFeeItem>> usageItems = Combinators.combine(
+        Arbitrary<List<VoiceUsage>> voiceUsages = Combinators.combine(
                 Arbitraries.strings().alpha().ofMinLength(3).ofMaxLength(10),
                 Arbitraries.integers().between(1, 1000).map(BigDecimal::valueOf),
                 Arbitraries.integers().between(1, 500).map(BigDecimal::valueOf))
-                .as((code, price, qty) -> new SubscriptionInfo.UsageFeeItem(code, "통화료_" + code, price, qty))
+                .as((id, duration, price) -> VoiceUsage.builder()
+                        .contractId("C001")
+                        .usageId(id)
+                        .duration(duration)
+                        .unitPrice(price)
+                        .build())
                 .list().ofMinSize(1).ofMaxSize(5);
 
-        return usageItems.map(items -> {
+        return voiceUsages.map(items -> {
             LocalDate now = LocalDate.of(2024, 1, 1);
-            SubscriptionInfo sub = new SubscriptionInfo(
-                    "SUB001", "PROD001", "SUBSCRIBER001",
-                    BigDecimal.ZERO, now, now.plusMonths(1), "N", null, List.of(), items, List.of(), null, null);
+            Map<Class<? extends UsageChargeDomain>, List<? extends UsageChargeDomain>> dataMap = new HashMap<>();
+            dataMap.put(VoiceUsage.class, items);
             return ChargeContext.of(
                     "TENANT_01",
                     new ContractInfo("C001", "SUB001", "PROD001", now, now.plusMonths(1)),
-                    ChargeInput.builder().subscriptionInfo(sub).suspensionHistories(List.of()).build());
+                    ChargeInput.builder().usageChargeDataMap(dataMap).build());
         });
     }
 }

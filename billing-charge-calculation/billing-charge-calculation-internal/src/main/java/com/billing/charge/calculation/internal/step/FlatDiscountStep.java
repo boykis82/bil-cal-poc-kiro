@@ -3,7 +3,7 @@ package com.billing.charge.calculation.internal.step;
 import com.billing.charge.calculation.api.enums.ChargeItemType;
 import com.billing.charge.calculation.api.model.FlatChargeResult;
 import com.billing.charge.calculation.internal.context.ChargeContext;
-import com.billing.charge.calculation.internal.model.SubscriptionInfo;
+import com.billing.charge.calculation.internal.model.DiscountSubscription;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import java.util.Map;
  * 할인2 Step (기간 미존재 할인).
  * ChargeContext에서 FlatChargeResult(원금성 항목: ONE_TIME_FEE, USAGE_FEE, MONTHLY_FEE
  * 압축분)를 조회하고,
- * 할인 가입정보/기준정보를 기반으로 할인을 계산한다.
+ * ChargeInput의 discountSubscriptions를 기반으로 할인을 계산한다.
  * 할인 결과는 FlatChargeResult(FLAT_DISCOUNT, 음수 금액)로 출력한다.
  */
 @Slf4j
@@ -42,15 +42,9 @@ public class FlatDiscountStep implements ChargeItemStep {
 
     @Override
     public void process(ChargeContext context) {
-        SubscriptionInfo subscription = context.getChargeInput().getSubscriptionInfo();
-        if (subscription == null) {
-            log.debug("Flat 할인 계산 생략: 가입정보 없음");
-            return;
-        }
-
-        List<SubscriptionInfo.DiscountItem> discountItems = subscription.discountItems();
-        if (discountItems == null || discountItems.isEmpty()) {
-            log.debug("Flat 할인 계산 생략: 할인 항목 없음");
+        List<DiscountSubscription> discountSubscriptions = context.getChargeInput().getDiscountSubscriptions();
+        if (discountSubscriptions == null || discountSubscriptions.isEmpty()) {
+            log.debug("Flat 할인 계산 생략: 할인 가입정보 없음");
             return;
         }
 
@@ -63,18 +57,18 @@ public class FlatDiscountStep implements ChargeItemStep {
             return;
         }
 
-        for (SubscriptionInfo.DiscountItem discount : discountItems) {
-            if (discount.discountRate() == null || discount.discountRate().compareTo(BigDecimal.ZERO) <= 0) {
-                log.debug("할인율 없음 또는 0 이하, 건너뜀: discountCode={}", discount.discountCode());
+        for (DiscountSubscription discount : discountSubscriptions) {
+            if (discount.getDiscountRate() == null || discount.getDiscountRate().compareTo(BigDecimal.ZERO) <= 0) {
+                log.debug("할인율 없음 또는 0 이하, 건너뜀: discountCode={}", discount.getDiscountCode());
                 continue;
             }
 
             for (FlatChargeResult principal : principalResults) {
-                BigDecimal discountAmount = calculateDiscountAmount(principal.amount(), discount.discountRate());
+                BigDecimal discountAmount = calculateDiscountAmount(principal.amount(), discount.getDiscountRate());
 
                 FlatChargeResult discountResult = new FlatChargeResult(
-                        discount.discountCode(),
-                        discount.discountName(),
+                        discount.getDiscountCode(),
+                        discount.getDiscountName(),
                         ChargeItemType.FLAT_DISCOUNT,
                         discountAmount,
                         "KRW",
@@ -92,8 +86,7 @@ public class FlatDiscountStep implements ChargeItemStep {
 
     /**
      * 원금성 Flat 결과를 수집한다.
-     * 할인 대상: ONE_TIME_FEE, USAGE_FEE, 그리고 chargeItemType이 null인 항목(압축된 MONTHLY_FEE
-     * 등).
+     * 할인 대상: ONE_TIME_FEE, USAGE_FEE, 그리고 chargeItemType이 null인 항목(압축된 MONTHLY_FEE 등).
      * 이미 적용된 할인(FLAT_DISCOUNT, PERIOD_DISCOUNT 등)은 제외한다.
      */
     private List<FlatChargeResult> collectPrincipalFlatResults(ChargeContext context) {
@@ -113,7 +106,7 @@ public class FlatDiscountStep implements ChargeItemStep {
     /**
      * 할인 금액 계산.
      * 할인 금액 = -(원금 × 할인율 / 100), 반올림 적용.
-     * 할인 금액의 절대값은 원금을 초과하지 않는다 (Property 12).
+     * 할인 금액의 절대값은 원금을 초과하지 않는다.
      */
     static BigDecimal calculateDiscountAmount(BigDecimal principalAmount, BigDecimal discountRate) {
         // 할인율을 0~100 범위로 제한

@@ -9,6 +9,8 @@ import java.util.List;
  * 요금 계산에 필요한 상품 가입 관련 정보를 담는다.
  */
 public record SubscriptionInfo(
+                /** 계약ID (데이터 로더에서 계약ID 기준 그룹핑에 사용) */
+                String contractId,
                 String subscriptionId,
                 String productId,
                 String subscriberId,

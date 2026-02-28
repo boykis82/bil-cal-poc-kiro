@@ -81,4 +81,18 @@
          WHERE o.CONTRACT_ID = #{contractId}
     </select>
 
+    <!-- 접수 테이블에서 계약 기본정보 일괄 조회 (예상 요금 조회용) -->
+    <select id="selectBaseContractsByOrder" resultType="com.billing.charge.calculation.api.dto.ContractInfo">
+        SELECT o.CONTRACT_ID   AS contractId,
+               o.SUBSCRIBER_ID AS subscriberId,
+               o.PRODUCT_ID    AS productId,
+               o.START_DATE    AS billingStartDate,
+               o.END_DATE      AS billingEndDate
+          FROM ORDER_SUBSCRIPTION o
+         WHERE o.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
 </mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.billing.charge.calculation.internal.mapper.VoiceUsageMapper">
+
+    <!-- 음성통화 사용량 resultMap -->
+    <resultMap id="voiceUsageResultMap"
+               type="com.billing.charge.calculation.internal.model.VoiceUsage">
+        <result property="contractId" column="CONTRACT_ID"/>
+        <result property="usageId" column="USAGE_ID"/>
+        <result property="duration" column="DURATION"/>
+        <result property="unitPrice" column="UNIT_PRICE"/>
+    </resultMap>
+
+    <!-- 계약ID 리스트로 음성통화 사용량 조회 -->
+    <select id="selectVoiceUsages" resultMap="voiceUsageResultMap">
+        SELECT vu.CONTRACT_ID,
+               vu.USAGE_ID,
+               vu.DURATION,
+               vu.UNIT_PRICE
+          FROM VOICE_USAGE vu
+         WHERE vu.CONTRACT_ID IN
+        <foreach collection="contractIds" item="contractId" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </select>
+
+</mapper>

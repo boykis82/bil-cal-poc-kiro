@@ -4,6 +4,7 @@ import com.billing.charge.calculation.api.dto.ChargeCalculationRequest;
 import com.billing.charge.calculation.api.enums.ProductType;
 import com.billing.charge.calculation.api.enums.UseCaseType;
 import com.billing.charge.calculation.api.exception.InvalidRequestException;
+import com.billing.charge.calculation.impl.dataloader.DataLoadOrchestrator;
 import com.billing.charge.calculation.impl.pipeline.PipelineConfigurator;
 import com.billing.charge.calculation.impl.pipeline.PipelineEngine;
 import com.billing.charge.calculation.impl.strategy.DataAccessStrategyResolver;
@@ -33,6 +34,9 @@ class ChargeCalculationServiceImplTest {
 
     @Mock
     private DataAccessStrategyResolver strategyResolver;
+
+    @Mock
+    private DataLoadOrchestrator dataLoadOrchestrator;
 
     @InjectMocks
     private ChargeCalculationServiceImpl service;

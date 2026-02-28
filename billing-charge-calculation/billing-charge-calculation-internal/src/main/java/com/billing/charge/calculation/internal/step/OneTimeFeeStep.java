@@ -3,18 +3,22 @@ package com.billing.charge.calculation.internal.step;
 import com.billing.charge.calculation.api.enums.ChargeItemType;
 import com.billing.charge.calculation.api.model.FlatChargeResult;
 import com.billing.charge.calculation.internal.context.ChargeContext;
-import com.billing.charge.calculation.internal.model.SubscriptionInfo;
+import com.billing.charge.calculation.internal.model.InstallmentHistory;
+import com.billing.charge.calculation.internal.model.OneTimeChargeDomain;
+import com.billing.charge.calculation.internal.model.PenaltyFee;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 일회성 요금 계산 Step.
- * 다양한 종류의 일회성 요금을 하나의 추상화된 인터페이스로 처리한다.
- * 가입정보와 기준정보를 입력으로 받아 FlatChargeResult를 생성한다.
+ * ChargeInput의 oneTimeChargeDataMap에서 등록된 OneTimeChargeDomain 유형별 데이터를 읽어
+ * 각 유형에 대한 FlatChargeResult를 생성한다.
+ * 데이터가 없으면 안전하게 생략한다 (예외 없이 return).
  */
 @Slf4j
 @Component
@@ -36,29 +40,35 @@ public class OneTimeFeeStep implements ChargeItemStep {
 
     @Override
     public void process(ChargeContext context) {
-        SubscriptionInfo subscription = context.getChargeInput().getSubscriptionInfo();
-        if (subscription == null) {
-            log.debug("일회성 요금 계산 생략: 가입정보 없음");
+        Map<Class<? extends OneTimeChargeDomain>, List<? extends OneTimeChargeDomain>> dataMap =
+                context.getChargeInput().getOneTimeChargeDataMap();
+
+        if (dataMap == null || dataMap.isEmpty()) {
+            log.debug("일회성 요금 계산 생략: 일회성 요금 데이터 없음");
             return;
         }
 
-        List<SubscriptionInfo.OneTimeFeeItem> feeItems = subscription.oneTimeFeeItems();
-        if (feeItems == null || feeItems.isEmpty()) {
-            log.debug("일회성 요금 계산 생략: 일회성 요금 항목 없음");
-            return;
+        for (var entry : dataMap.entrySet()) {
+            processOneTimeChargeType(entry.getKey(), entry.getValue(), context);
         }
+    }
 
-        for (SubscriptionInfo.OneTimeFeeItem item : feeItems) {
-            if (item.amount() == null) {
-                log.debug("일회성 요금 항목 금액 없음, 건너뜀: feeItemCode={}", item.feeItemCode());
+    private void processOneTimeChargeType(
+            Class<? extends OneTimeChargeDomain> type,
+            List<? extends OneTimeChargeDomain> items,
+            ChargeContext context) {
+        for (OneTimeChargeDomain item : items) {
+            BigDecimal amount = resolveAmount(item);
+            if (amount == null) {
+                log.debug("일회성 요금 항목 금액 없음, 건너뜀: type={}", type.getSimpleName());
                 continue;
             }
 
             FlatChargeResult result = new FlatChargeResult(
-                    item.feeItemCode(),
-                    item.feeItemName(),
+                    type.getSimpleName(),
+                    type.getSimpleName(),
                     ChargeItemType.ONE_TIME_FEE,
-                    item.amount(),
+                    amount,
                     "KRW",
                     Map.of());
 
@@ -66,8 +76,18 @@ public class OneTimeFeeStep implements ChargeItemStep {
         }
     }
 
+    private BigDecimal resolveAmount(OneTimeChargeDomain item) {
+        if (item instanceof InstallmentHistory ih) {
+            return ih.getInstallmentAmount();
+        } else if (item instanceof PenaltyFee pf) {
+            return pf.getPenaltyAmount();
+        }
+        return null;
+    }
+
     @Override
     public boolean requiresStatusUpdate() {
         return false;
     }
 }
+

@@ -89,7 +89,7 @@ class MonthlyFeeStepPropertyTest {
                                         }
 
                                         SubscriptionInfo subscriptionInfo = new SubscriptionInfo(
-                                                        "SUB001", "PROD001", "SUBSCRIBER001",
+                                                        "C001", "SUB001", "PROD001", "SUBSCRIBER001",
                                                         rate, startDate, endDate,
                                                         "N", null, List.of(), List.of(), List.of(), null, null);
 

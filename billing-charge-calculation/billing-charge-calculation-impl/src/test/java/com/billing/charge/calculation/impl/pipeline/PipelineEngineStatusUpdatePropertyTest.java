@@ -8,6 +8,8 @@ import com.billing.charge.calculation.internal.model.ChargeInput;
 import com.billing.charge.calculation.internal.model.ChargeResult;
 import com.billing.charge.calculation.internal.step.ChargeItemStep;
 import com.billing.charge.calculation.internal.strategy.DataAccessStrategy;
+import com.billing.charge.calculation.internal.dataloader.ChargeItemDataLoader;
+import com.billing.charge.calculation.internal.dataloader.ContractBaseLoader;
 import net.jqwik.api.*;
 
 import java.time.LocalDate;
@@ -132,6 +134,16 @@ class PipelineEngineStatusUpdatePropertyTest {
         public void updateProcessingStatus(String chargeItemId, ProcessingStatus status) {
             assertThat(status).isEqualTo(ProcessingStatus.COMPLETED);
             statusUpdatedStepIds.add(chargeItemId);
+        }
+
+        @Override
+        public ContractBaseLoader getContractBaseLoader() {
+            throw new UnsupportedOperationException("Not used in test");
+        }
+
+        @Override
+        public List<ChargeItemDataLoader> getChargeItemDataLoaders() {
+            throw new UnsupportedOperationException("Not used in test");
         }
     }
 
